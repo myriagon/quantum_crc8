@@ -1,0 +1,110 @@
+./exp1c.cmd
+
+$ ls exp1c.[0-9][0-9][0-9][0-9].txt | wc -l
+244
+
+244 of 400 attempts to find an embedding succeeded.
+
+$ egrep 'max_chain_len' exp1c.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp1c.0214.txt:max_chain_len = 10
+exp1c.0288.txt:max_chain_len = 10  <<--
+exp1c.0048.txt:max_chain_len = 11
+exp1c.0178.txt:max_chain_len = 11
+exp1c.0212.txt:max_chain_len = 11
+exp1c.0256.txt:max_chain_len = 11
+exp1c.0265.txt:max_chain_len = 11
+exp1c.0129.txt:max_chain_len = 12
+exp1c.0184.txt:max_chain_len = 12
+exp1c.0253.txt:max_chain_len = 12
+exp1c.0273.txt:max_chain_len = 12
+exp1c.0304.txt:max_chain_len = 12
+
+$ egrep 'avg_chain_len' exp1c.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp1c.0288.txt:avg_chain_len = 2.890411  <<--
+exp1c.0178.txt:avg_chain_len = 2.893836
+exp1c.0214.txt:avg_chain_len = 2.910959
+exp1c.0256.txt:avg_chain_len = 2.962329
+exp1c.0265.txt:avg_chain_len = 3.010274
+exp1c.0099.txt:avg_chain_len = 3.017123
+exp1c.0109.txt:avg_chain_len = 3.030822
+exp1c.0129.txt:avg_chain_len = 3.034247
+exp1c.0212.txt:avg_chain_len = 3.065068
+exp1c.0253.txt:avg_chain_len = 3.075342
+exp1c.0048.txt:avg_chain_len = 3.078767
+exp1c.0266.txt:avg_chain_len = 3.078767
+
+Embedding 0288 appears to be the best.
+Its avg chain len, 2.890411, is the shortest of any found.
+Its max chain len, 10, is also as short as any found.
+
+$ egrep 'max_chain_len' exp1c.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp1c.0098.txt:max_chain_len = 39
+exp1c.0005.txt:max_chain_len = 40
+exp1c.0100.txt:max_chain_len = 40
+exp1c.0306.txt:max_chain_len = 40
+exp1c.0337.txt:max_chain_len = 40
+exp1c.0362.txt:max_chain_len = 40
+exp1c.0359.txt:max_chain_len = 43
+exp1c.0388.txt:max_chain_len = 43
+exp1c.0378.txt:max_chain_len = 44
+exp1c.0386.txt:max_chain_len = 44
+exp1c.0059.txt:max_chain_len = 48
+exp1c.0036.txt:max_chain_len = 50
+
+$ egrep 'avg_chain_len' exp1c.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp1c.0152.txt:avg_chain_len = 4.119863
+exp1c.0362.txt:avg_chain_len = 4.126712
+exp1c.0072.txt:avg_chain_len = 4.130137
+exp1c.0201.txt:avg_chain_len = 4.130137
+exp1c.0170.txt:avg_chain_len = 4.171233
+exp1c.0031.txt:avg_chain_len = 4.174658
+exp1c.0235.txt:avg_chain_len = 4.287671
+exp1c.0388.txt:avg_chain_len = 4.294521
+exp1c.0359.txt:avg_chain_len = 4.321918
+exp1c.0147.txt:avg_chain_len = 4.335616
+exp1c.0124.txt:avg_chain_len = 4.352740
+exp1c.0100.txt:avg_chain_len = 4.376712
+
+$ ./crc8_qpu.py -f exp1c.0288.txt -s exp1c.0288.sampset.01.txt -n 1000
+$ ./crc8_qpu.py -f exp1c.0288.txt -s exp1c.0288.sampset.02.txt -n 1000
+$ ./crc8_qpu.py -f exp1c.0288.txt -s exp1c.0288.sampset.03.txt -n 1000
+$ ./crc8_qpu.py -f exp1c.0288.txt -s exp1c.0288.sampset.04.txt -n 1000
+
+$ ./crc8_examine_samples.py -f exp1c.0288.txt -s exp1c.0288.sampset.01.txt > exp1c.0288.sampset.01.all.txt
+$ ./crc8_examine_samples.py -f exp1c.0288.txt -s exp1c.0288.sampset.02.txt > exp1c.0288.sampset.02.all.txt
+$ ./crc8_examine_samples.py -f exp1c.0288.txt -s exp1c.0288.sampset.03.txt > exp1c.0288.sampset.03.all.txt
+$ ./crc8_examine_samples.py -f exp1c.0288.txt -s exp1c.0288.sampset.04.txt > exp1c.0288.sampset.04.all.txt
+
+$ cat exp1c.0288.sampset.0[1-4].all.txt | egrep valid
+crc8 00011111 init 00000000 data 11011101 11110011 11111111 11111011 11101011 11011110 energy  150.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 10011101 11110001 11111111 11111001 10101011 11011110 energy  158.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11011101 11110010 10110111 11111011 10101011 10011111 energy  168.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11011100 11110011 11111111 11111101 10101011 11010111 energy  150.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11011111 11110011 11110111 11111101 10101011 11011111 energy  162.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 10011101 11110000 10110111 11111001 11101011 10011111 energy  159.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11011100 11110011 11111111 11111101 10101011 11010111 energy  158.0 computed-crc8 00011111 valid
+
+$ cat exp1c.0288.sampset.0[1-4].all.txt | egrep valid | wc -l
+7
+
+$ cat exp1c.0288.sampset.0[1-4].all.txt | egrep valid | cut -c29-86
+data 11011101 11110011 11111111 11111011 11101011 11011110
+data 10011101 11110001 11111111 11111001 10101011 11011110
+data 11011101 11110010 10110111 11111011 10101011 10011111
+data 11011100 11110011 11111111 11111101 10101011 11010111
+data 11011111 11110011 11110111 11111101 10101011 11011111
+data 10011101 11110000 10110111 11111001 11101011 10011111
+data 11011100 11110011 11111111 11111101 10101011 11010111
+
+$ cat exp1c.0288.sampset.0[1-4].all.txt | egrep valid | cut -c29-86 | sort | uniq -c
+      1 data 10011101 11110000 10110111 11111001 11101011 10011111
+      1 data 10011101 11110001 11111111 11111001 10101011 11011110
+      2 data 11011100 11110011 11111111 11111101 10101011 11010111
+      1 data 11011101 11110010 10110111 11111011 10101011 10011111
+      1 data 11011101 11110011 11111111 11111011 11101011 11011110
+      1 data 11011111 11110011 11110111 11111101 10101011 11011111
+
+Of the 4000 samples read from the QPU, 7 are valid, and 6 distinct valid
+solutions were found.
+
+
