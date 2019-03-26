@@ -1,0 +1,115 @@
+./exp1e.cmd
+
+$ ls exp1e.[0-9][0-9][0-9][0-9].txt | wc -l
+25
+
+25 of 400 attempts to find an embedding succeeded.
+
+$ egrep 'max_chain_len' exp1e.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp1e.0033.txt:max_chain_len = 12  <<--
+exp1e.0378.txt:max_chain_len = 14
+exp1e.0135.txt:max_chain_len = 15
+exp1e.0231.txt:max_chain_len = 16
+exp1e.0062.txt:max_chain_len = 17
+exp1e.0090.txt:max_chain_len = 17
+exp1e.0290.txt:max_chain_len = 17
+exp1e.0000.txt:max_chain_len = 20
+exp1e.0056.txt:max_chain_len = 21
+exp1e.0366.txt:max_chain_len = 21
+exp1e.0312.txt:max_chain_len = 23
+exp1e.0319.txt:max_chain_len = 23
+
+$ egrep 'avg_chain_len' exp1e.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp1e.0033.txt:avg_chain_len = 3.119898  <<--
+exp1e.0378.txt:avg_chain_len = 3.252551
+exp1e.0056.txt:avg_chain_len = 3.311224
+exp1e.0135.txt:avg_chain_len = 3.313776
+exp1e.0062.txt:avg_chain_len = 3.329082
+exp1e.0290.txt:avg_chain_len = 3.346939
+exp1e.0312.txt:avg_chain_len = 3.357143
+exp1e.0000.txt:avg_chain_len = 3.380102
+exp1e.0263.txt:avg_chain_len = 3.403061
+exp1e.0239.txt:avg_chain_len = 3.418367
+exp1e.0350.txt:avg_chain_len = 3.436224
+exp1e.0264.txt:avg_chain_len = 3.438776
+
+Embedding 0033 appears to be the best.
+Its max chain len, 12, is the shortest found.
+Its avg chain len, 3.119898, is also the shortest found.
+
+$ egrep 'max_chain_len' exp1e.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp1e.0171.txt:max_chain_len = 25
+exp1e.0350.txt:max_chain_len = 27
+exp1e.0367.txt:max_chain_len = 27
+exp1e.0239.txt:max_chain_len = 28
+exp1e.0217.txt:max_chain_len = 31
+exp1e.0263.txt:max_chain_len = 31
+exp1e.0264.txt:max_chain_len = 32
+exp1e.0313.txt:max_chain_len = 32
+exp1e.0203.txt:max_chain_len = 35
+exp1e.0048.txt:max_chain_len = 38
+exp1e.0252.txt:max_chain_len = 39
+exp1e.0395.txt:max_chain_len = 39
+
+$ egrep 'avg_chain_len' exp1e.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp1e.0171.txt:avg_chain_len = 3.448980
+exp1e.0090.txt:avg_chain_len = 3.451531
+exp1e.0231.txt:avg_chain_len = 3.471939
+exp1e.0048.txt:avg_chain_len = 3.489796
+exp1e.0319.txt:avg_chain_len = 3.540816
+exp1e.0252.txt:avg_chain_len = 3.566327
+exp1e.0105.txt:avg_chain_len = 3.571429
+exp1e.0203.txt:avg_chain_len = 3.579082
+exp1e.0217.txt:avg_chain_len = 3.581633
+exp1e.0367.txt:avg_chain_len = 3.658163
+exp1e.0313.txt:avg_chain_len = 3.691327
+exp1e.0395.txt:avg_chain_len = 3.778061
+
+$ ./crc8_qpu.py -f exp1e.0033.txt -s exp1e.0033.sampset.01.txt -n 1000
+$ ./crc8_qpu.py -f exp1e.0033.txt -s exp1e.0033.sampset.02.txt -n 1000
+$ ./crc8_qpu.py -f exp1e.0033.txt -s exp1e.0033.sampset.03.txt -n 1000
+$ ./crc8_qpu.py -f exp1e.0033.txt -s exp1e.0033.sampset.04.txt -n 1000
+
+$ ./crc8_examine_samples.py -f exp1e.0033.txt -s exp1e.0033.sampset.01.txt > exp1e.0033.sampset.01.all.txt
+$ ./crc8_examine_samples.py -f exp1e.0033.txt -s exp1e.0033.sampset.02.txt > exp1e.0033.sampset.02.all.txt
+$ ./crc8_examine_samples.py -f exp1e.0033.txt -s exp1e.0033.sampset.03.txt > exp1e.0033.sampset.03.all.txt
+$ ./crc8_examine_samples.py -f exp1e.0033.txt -s exp1e.0033.sampset.04.txt > exp1e.0033.sampset.04.all.txt
+
+$ cat exp1e.0033.sampset.0[1-4].all.txt | egrep valid
+crc8 00011111 init 00000000 data 11111110 11110111 11111111 11111111 11000111 11101111 11111101 11110011 energy  219.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 11110111 11011111 11111111 11010111 11101111 11111101 11110011 energy  203.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 10110111 11011111 11111111 11010111 11111111 11111101 11110011 energy  216.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 11110111 11011111 11011111 11010111 11111111 11111101 11110011 energy  201.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 11110111 11011111 11011111 11010111 11111111 11111101 11110011 energy  204.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 11110111 11111111 11011111 11000111 11111111 11111101 11110011 energy  204.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 10110111 11011111 11111111 11010111 11111111 11111101 11110011 energy  223.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 11100111 11111111 11111111 01011111 11101111 11111101 11110011 energy  196.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111110 10110111 11011111 11011111 11010111 11101111 11111101 11110011 energy  212.0 computed-crc8 00011111 valid
+
+$ cat exp1e.0033.sampset.0[1-4].all.txt | egrep valid | wc -l
+9
+
+$ cat exp1e.0033.sampset.0[1-4].all.txt | egrep valid | cut -c29-104
+data 11111110 11110111 11111111 11111111 11000111 11101111 11111101 11110011
+data 11111110 11110111 11011111 11111111 11010111 11101111 11111101 11110011
+data 11111110 10110111 11011111 11111111 11010111 11111111 11111101 11110011
+data 11111110 11110111 11011111 11011111 11010111 11111111 11111101 11110011
+data 11111110 11110111 11011111 11011111 11010111 11111111 11111101 11110011
+data 11111110 11110111 11111111 11011111 11000111 11111111 11111101 11110011
+data 11111110 10110111 11011111 11111111 11010111 11111111 11111101 11110011
+data 11111110 11100111 11111111 11111111 01011111 11101111 11111101 11110011
+data 11111110 10110111 11011111 11011111 11010111 11101111 11111101 11110011
+
+$ cat exp1e.0033.sampset.0[1-4].all.txt | egrep valid | cut -c29-104 | sort | uniq -c
+      1 data 11111110 10110111 11011111 11011111 11010111 11101111 11111101 11110011
+      2 data 11111110 10110111 11011111 11111111 11010111 11111111 11111101 11110011
+      1 data 11111110 11100111 11111111 11111111 01011111 11101111 11111101 11110011
+      2 data 11111110 11110111 11011111 11011111 11010111 11111111 11111101 11110011
+      1 data 11111110 11110111 11011111 11111111 11010111 11101111 11111101 11110011
+      1 data 11111110 11110111 11111111 11011111 11000111 11111111 11111101 11110011
+      1 data 11111110 11110111 11111111 11111111 11000111 11101111 11111101 11110011
+
+Of the 4000 samples read from the QPU, 9 are valid, and 7 distinct valid
+solutions were found.
+
+
