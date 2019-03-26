@@ -1,0 +1,139 @@
+In this experiment, we construct a crc8 circuit with 2 of the crc8 bits unfixed,
+2 of the init bits unfixed, and 32 of the 64 data bits unfixed.  We run the
+crc8 algorithm forward and backward at the same time!
+
+$ cat exp2.cmd
+#!/bin/bash
+
+set -x  # echo commands
+
+time ./crc8_bqm_emb.py -f 'exp2.{0:04d}.txt' \
+    -n 400 \
+    -t 4 \
+    -c 0x0111x1 \
+    -i 000xx000 \
+    -d 10101100 00011100 xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx 01110001 11110000
+
+$ ./exp2.cmd
+
+$ ls exp2.[0-9][0-9][0-9][0-9].txt | wc -l
+48
+
+48 of 400 attempts to find an embedding succeeded.
+
+$ egrep 'max_chain_len' exp2.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp2.0367.txt:max_chain_len = 12
+exp2.0076.txt:max_chain_len = 13
+exp2.0148.txt:max_chain_len = 13
+exp2.0276.txt:max_chain_len = 13  <<--
+exp2.0346.txt:max_chain_len = 13
+exp2.0359.txt:max_chain_len = 13
+exp2.0094.txt:max_chain_len = 14
+exp2.0164.txt:max_chain_len = 14
+exp2.0200.txt:max_chain_len = 15
+exp2.0330.txt:max_chain_len = 15
+exp2.0117.txt:max_chain_len = 16
+exp2.0292.txt:max_chain_len = 16
+
+$ egrep 'avg_chain_len' exp2.[0-9][0-9][0-9][0-9].txt | sort -k 3n | head -12
+exp2.0276.txt:avg_chain_len = 3.162088  <<--
+exp2.0346.txt:avg_chain_len = 3.175824
+exp2.0359.txt:avg_chain_len = 3.195055
+exp2.0067.txt:avg_chain_len = 3.211538
+exp2.0094.txt:avg_chain_len = 3.222527
+exp2.0148.txt:avg_chain_len = 3.247253
+exp2.0330.txt:avg_chain_len = 3.313187
+exp2.0200.txt:avg_chain_len = 3.329670
+exp2.0106.txt:avg_chain_len = 3.357143
+exp2.0118.txt:avg_chain_len = 3.373626
+exp2.0153.txt:avg_chain_len = 3.390110
+exp2.0164.txt:avg_chain_len = 3.398352
+
+It isn't obvious which embedding is best.
+Let's go with embedding 0276.
+Its avg chain len, 3.162088, is the shortest found.
+Its max chain len, 13, is only 1 longer than the shortest found.
+
+$ egrep 'max_chain_len' exp2.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp2.0121.txt:max_chain_len = 27
+exp2.0246.txt:max_chain_len = 27
+exp2.0338.txt:max_chain_len = 27
+exp2.0383.txt:max_chain_len = 27
+exp2.0191.txt:max_chain_len = 28
+exp2.0137.txt:max_chain_len = 30
+exp2.0188.txt:max_chain_len = 30
+exp2.0266.txt:max_chain_len = 31
+exp2.0106.txt:max_chain_len = 32
+exp2.0312.txt:max_chain_len = 32
+exp2.0349.txt:max_chain_len = 32
+exp2.0190.txt:max_chain_len = 35
+
+$ egrep 'avg_chain_len' exp2.[0-9][0-9][0-9][0-9].txt | sort -k 3n | tail -12
+exp2.0063.txt:avg_chain_len = 3.747253
+exp2.0086.txt:avg_chain_len = 3.763736
+exp2.0146.txt:avg_chain_len = 3.780220
+exp2.0009.txt:avg_chain_len = 3.804945
+exp2.0121.txt:avg_chain_len = 3.815934
+exp2.0195.txt:avg_chain_len = 3.832418
+exp2.0272.txt:avg_chain_len = 3.832418
+exp2.0102.txt:avg_chain_len = 3.870879
+exp2.0360.txt:avg_chain_len = 3.873626
+exp2.0083.txt:avg_chain_len = 4.002747
+exp2.0266.txt:avg_chain_len = 4.052198
+exp2.0383.txt:avg_chain_len = 4.118132
+
+$ ./crc8_qpu.py -f exp2.0276.txt -s exp2.0276.sampset.01.txt -n 4000
+
+$ ./crc8_examine_samples.py -f exp2.0276.txt -s exp2.0276.sampset.01.txt > exp2.0276.sampset.01.all.txt
+
+$ cat exp2.0276.sampset.01.all.txt | egrep valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000 energy  174.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11111111 11111011 10111110 01110001 11110000 energy  193.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000 energy  194.0 computed-crc8 01011111 valid
+crc8 01011111 init 00000000 data 10101100 00011100 11111110 11011101 10111011 11111111 01110001 11110000 energy  212.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000 energy  202.0 computed-crc8 01011111 valid
+crc8 01011111 init 00000000 data 10101100 00011100 11111111 11011111 10101011 00111110 01110001 11110000 energy  194.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11111111 00111111 11111110 01110001 11110000 energy  184.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 10011101 10111111 11111110 01110001 11110000 energy  193.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11111111 11111011 10111110 01110001 11110000 energy  211.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000 energy  170.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 11111011 10101110 01110001 11110000 energy  197.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000 energy  189.0 computed-crc8 01011111 valid
+crc8 01011111 init 00000000 data 10101100 00011100 11011011 11011101 10111011 01111111 01110001 11110000 energy  173.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11111011 11011111 11101011 00001111 01110001 11110000 energy  187.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11011110 11011100 10111011 11111110 01110001 11110000 energy  213.0 computed-crc8 01011111 valid
+crc8 01011111 init 00010000 data 10101100 00011100 11111011 11011100 10111011 01111110 01110001 11110000 energy  211.0 computed-crc8 01011111 valid
+
+$ cat exp2.0276.sampset.01.all.txt | egrep valid | wc -l
+16
+
+Of the 4000 samples read from the QPU, 16 are valid.
+
+$ cat exp2.0276.sampset.01.all.txt | egrep valid | cut -c1-13 | sort | uniq -c
+     16 crc8 01011111
+
+The same crc8 appears in all 16 of the valid solutions that were found.
+
+$ cat exp2.0276.sampset.01.all.txt | egrep valid | cut -c15-27 | sort | uniq -c
+      3 init 00000000
+     13 init 00010000
+
+Two distinct init octets appear in the valid solutions.
+
+$ cat exp2.0276.sampset.01.all.txt | egrep valid | cut -c1-104 | sort | uniq -c
+      1 crc8 01011111 init 00000000 data 10101100 00011100 11011011 11011101 10111011 01111111 01110001 11110000
+      1 crc8 01011111 init 00000000 data 10101100 00011100 11111110 11011101 10111011 11111111 01110001 11110000
+      1 crc8 01011111 init 00000000 data 10101100 00011100 11111111 11011111 10101011 00111110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11011110 11011100 10111011 11111110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11011111 10011101 10111111 11111110 01110001 11110000
+      5 crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 10111111 00111110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11011111 11011111 11111011 10101110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11011111 11111111 00111111 11111110 01110001 11110000
+      2 crc8 01011111 init 00010000 data 10101100 00011100 11011111 11111111 11111011 10111110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11111011 11011100 10111011 01111110 01110001 11110000
+      1 crc8 01011111 init 00010000 data 10101100 00011100 11111011 11011111 11101011 00001111 01110001 11110000
+
+11 distinct combinations of crc8, init, and data appear in the 16 valid
+solutions.
+
+
