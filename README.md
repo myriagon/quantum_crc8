@@ -87,7 +87,7 @@ It can take hours to make hundreds of attempts to find an embedding.
 It is worth it, because some embeddings are much better than others.
 This program does not use QPU time, only CPU time on the local computer.
 
-```$ cat exp1a.cmd
+```
 #!/bin/bash
 
 set -x  # echo commands
@@ -103,7 +103,8 @@ time ./crc8_bqm_emb.py -f 'exp1a.{0:04d}.txt' \
 The output of the script can be redirected to a log file and monitored
 using `tail`.  In `bash`:
 
-```./exp1a.cmd > exp1a.log 2>&1 &
+```
+./exp1a.cmd > exp1a.log 2>&1 &
 tail -100f exp1a.log
 ```
 
@@ -138,7 +139,8 @@ values.  Then there is no problem for the quantum computer to solve.
 
 ### Details about `crc8_qpu.py`
 
-```./crc8_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
+```
+./crc8_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
 ```
 
 The parameter `-f exp1a.0381.txt` tells the program to use the variables, BQM,
@@ -161,7 +163,8 @@ file, but it is hard to interpret by eye.
 unpacks the information, checks validity of samples, and pretty-prints a table.
 It does not use QPU time.
 
-```./crc8_examine_samples.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt | egrep valid
+```
+./crc8_examine_samples.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt | egrep valid
 crc8 00011111 init 00000000 data 11010111 11110100 11110111 11101001 energy  120.0 computed-crc8 00011111 valid
 crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy  115.0 computed-crc8 00011111 valid
 crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy   74.0 computed-crc8 00011111 valid
