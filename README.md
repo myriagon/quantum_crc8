@@ -65,9 +65,9 @@ QPU.
 
 In a nutshell, the workflow is:
 - Run`crc8_bqm_emb.py` to formulate the problem and fit it to the QPU of a
-specific quantum computer.  (All of these examples were executed on a machine
-called DW_2000Q_2_1.)  Check the max chain len and avg chain len statistics of
-the embeddings and pick one with short chains.
+specific quantum computer.  (All of the worked examples included in this project
+were executed on a machine called DW_2000Q_2_1.)  Check the max chain len and
+avg chain len statistics of the embeddings and pick one with short chains.
 - Run `crc8_qpu.py` to submit the problem to the quantum computer, read samples
 (answers) from the QPU, and store the results in a file.
 - Run `crc8_examine_samples.py` to extract data from the results file, check
