@@ -130,12 +130,12 @@ octets (8-bit bytes).  An `x` means that the value of a bit is unknown
 (unfixed).  The quantum computer will find values for the unknown bits.
 
 Note that any or all of the CRC8, init, or data bits can be marked as unknown
-with an 'x'.  If all of the bits are marked as unknown, the quantum computer
+with an `x`.  If all of the bits are marked as unknown, the quantum computer
 will attempt to pull values out of thin air that satisfy the constraints of the
 CRC8 algorithm!  See experiment 4, `4/exp4.notes.txt`.
 
-It does not make sense to fix all of the CRC8, init, and data bits with 0 or 1
-values.  Then there is no problem for the quantum computer to solve.
+It does not make sense to fix all of the CRC8, init, and data bits with `0` or
+`1` values.  Then there is no problem for the quantum computer to solve.
 
 ### Details about `crc8_qpu.py`
 
@@ -194,14 +194,14 @@ antennas of NASA's Deep Space Network (DSN) will be able to transmit data more
 rapidly to the spacecraft.  I think that quantum computers could help with the
 limited downlink budget problem.
 
-Imagine that for each n-bit blob of data to be sent to Earth, the spacecraft
-computes some kind of checksum, hash, or message digest using an algorithm that
-can be expressed in terms of combinational logic.  The spacecraft transmits the
-message digest to Earth.  A quantum computer on Earth runs a program along the
-lines of the one implemented in this project to discover possible values for the
-data blob.  The candidate reconstructed blob is transmitted to the spacecraft.
-The spacecraft responds "Yes, you got it" or "No, that is wrong; here is another
-message digest computed with algorithm B".
+Imagine that for each blob of data to be sent to Earth, the spacecraft computes
+some kind of checksum, hash, or message digest using an algorithm that can be
+expressed in terms of combinational logic.  The spacecraft transmits the message
+digest and the size of the blob to Earth.  A quantum computer on Earth runs a
+program along the lines of the one implemented in this project to discover
+possible values for the data blob.  The candidate reconstructed data blob is
+transmitted to the spacecraft.  The spacecraft responds "Yes, you got it" or
+"No, that is wrong; here is another message digest computed with algorithm B".
 
 Using a D-Wave 2000Q with 2048 qubits, it is possible to use the software
 contained in this project to discover as many as 9 octets (72 bits) of unknown
