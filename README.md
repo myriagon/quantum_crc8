@@ -83,6 +83,11 @@ is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
 ### Details about `crc8_bqm_emb.py`
 
+`crc8_bqm_emb.py` builds a CSP, translates the CSP to a BQM, and attempts to
+find embeddings.
+
+For example:
+
 The following little `bash` script, `exp1a.cmd`, invokes `crc8_bqm_emb.py`
 using the `time` command to measure CPU time and elapsed wall-clock time.
 It can take hours to make hundreds of attempts to find an embedding.
@@ -141,6 +146,11 @@ It does not make sense to fix all of the CRC8, init, and data bits with `0` or
 
 ### Details about `crc8_qpu.py`
 
+`crc8_qpu.py` submits a problem to a quantum computer remotely via the Leap
+platform.
+
+For example:
+
 ```
 ./crc8_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
 ```
@@ -148,9 +158,6 @@ It does not make sense to fix all of the CRC8, init, and data bits with `0` or
 The parameter `-f exp1a.0381.txt` tells the program to use the variables, BQM,
 embedding, etc stored in the file `exp1a.0381.txt`, which was written by
 `crc8_emb_bqm.py`.
-
-`crc8_qpu.py` submits the problem to the quantum computer remotely via the Leap
-platform.
 
 The parameter `-n 1000` tells it to read 1000 samples (answers) from the QPU --
 i.e., to execute the program 1000 times in rapid succession.
