@@ -61,11 +61,7 @@ QPU.
 ### `crc8.py`
 - Contains functions used by the programs above.
 
-## Examples
-
-Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain worked
-examples.  In each folder look for a file called `expX.notes.txt`, where `X`
-is the experiment name -- e.g., `1a/exp1a.notes.txt`.
+## Workflow
 
 In a nutshell, the workflow is:
 - Run`crc8_bqm_emb.py` to formulate the problem and fit it to the QPU of a
@@ -76,6 +72,12 @@ the embeddings and pick one with short chains.
 (answers) from the QPU, and store the results in a file.
 - Run `crc8_examine_samples.py` to extract data from the results file, check
 validity of samples (answers), and print a table.
+
+## Examples
+
+Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain worked
+examples.  In each folder look for a file called `expX.notes.txt`, where `X`
+is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
 ## Details about usage of programs
 
