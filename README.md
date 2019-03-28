@@ -127,14 +127,17 @@ be written.
 The parameter `-t 4` means use four threads.  If in doubt, specify `-t 1`.
 
 The parameter `-c 00011111` specifies the 8-bit cyclic redundancy check (CRC8)
-value, in binary (base 2) notation.
+value, in binary (base 2) notation.  The string must contain exactly eight `0`,
+`1`, and/or `x` characters, with `x` denoting an unknown (unfixed) bit for which
+the QPU will find a value.
 
 The parameter `-i 00000000` specifies the 8-bit initialization value for the
-CRC8 algorithm.
+CRC8 algorithm, in binary.  The string must contain exactly eight `0`, `1`,
+and/or `x` characters.
 
 The parameter `-d xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx` specifies four data
-octets (8-bit bytes).  An `x` means that the value of a bit is unknown
-(unfixed).  The quantum computer will find values for the unknown bits.
+octets (8-bit bytes), in binary.  Each data octet string (this example has four)
+must contain exactly eight `0`, `1`, and/or `x` characters.
 
 Note that any or all of the CRC8, init, or data bits can be marked as unknown
 with an `x`.  If all of the bits are marked as unknown, the quantum computer
@@ -155,21 +158,20 @@ For example:
 ./crc8_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
 ```
 
-The parameter `-f exp1a.0381.txt` tells the program to use the variables, BQM,
-embedding, etc stored in the file `exp1a.0381.txt`, which was written by
-`crc8_emb_bqm.py`.
+The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
+BQM, embedding, etc that was written by `crc8_emb_bqm.py`.
 
-The parameter `-n 1000` tells it to read 1000 samples (answers) from the QPU --
-i.e., to execute the program 1000 times in rapid succession.
+The parameter `-n 1000` tells the program to read 1000 samples (answers) from
+the QPU.
 
-The parameter `-s exp1a.0381.sampset.01.txt` specifies the name of the file in
-which the samples (answers) will be stored using JSON.  This is an ASCII text
-file, but it is hard to interpret by eye.
+The parameter `-s exp1a.0381.sampset.01.txt` specifies the output file in which
+the samples (answers) obtained from the QPU will be written using JSON.  This is
+an ASCII text file, but it is hard to interpret by eye.
 
 ### Details about `crc8_examine_samples.py`
 
 `crc8_examine_samples.py` reads a file of samples (answers) from the QPU,
-unpacks the information, checks validity of samples, and pretty-prints a table.
+unpacks the information, checks validity of samples, and prints a table.
 It does not use QPU time.
 
 ```
@@ -182,6 +184,18 @@ crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy  110
 crc8 00011111 init 00000000 data 11010111 11110100 11110111 11101001 energy  109.0 computed-crc8 00011111 valid
 ...
 ```
+
+The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
+BQM, embedding, etc that was written by `crc8_emb_bqm.py`.
+
+The parameter `-s exp1a.0381.sampset.01.txt` specifies the input file of samples
+(answers) from the QPU that was written by `crc8_qpu.py`.
+
+In the output table, `crc8` designates the CRC8 value obtained from the QPU.
+The `init` and `data` values obtained from the QPU are used to calculate a CRC8
+value on the local conventional computer.  This is designated as `computed-crc8`
+in the table.  If `crc8` and `computed-crc8` match, the answer from the QPU is
+valid, and the word `valid` appears at the end of the row in the table.
 
 ## System requirements
 
