@@ -136,8 +136,9 @@ CRC8 algorithm, in binary.  The string must contain exactly eight `0`, `1`,
 and/or `x` characters.
 
 The parameter `-d xxxxxxxx xxxxxxxx xxxxxxxx xxxxxxxx` specifies four data
-octets (8-bit bytes), in binary.  Each data octet string (this example has four)
-must contain exactly eight `0`, `1`, and/or `x` characters.
+octets (8-bit bytes), in binary.  Each data octet string must contain exactly
+eight `0`, `1`, and/or `x` characters.  If more than one data octet is
+specified, the octets must be separated by spaces as in this example.
 
 Note that any or all of the CRC8, init, or data bits can be marked as unknown
 with an `x`.  If all of the bits are marked as unknown, the quantum computer
