@@ -34,7 +34,7 @@ some of which are likely to be valid.
 
 ## Source code
 
-### `crc8_bqm_emb.py`
+### `crc8_formulate_problem.py`
 - Reads command-line parameters defining the problem to be solved.
 - Builds a constraint satisfaction problem (CSP).
 - Translates the CSP into a binary quadratic model (BQM).
@@ -45,8 +45,8 @@ using JSON for complicated data structures.
 - Does not use QPU time.
 
 ### `crc8_qpu.py`
-- Reads a file written by `crc8_bqm_emb.py` containing parameters, BQM, and
-embedding.
+- Reads a file written by `crc8_formulate_problem.py` containing parameters,
+BQM, and embedding.
 - Runs the problem on the quantum computer remotely via the Leap cloud platform.
 - Stores samples (answers) in a file using JSON.
 - Uses QPU time.
@@ -64,10 +64,11 @@ QPU.
 ## Workflow
 
 In a nutshell, the workflow is:
-- Run`crc8_bqm_emb.py` to formulate the problem and fit it to the QPU of a
-specific quantum computer.  (All of the worked examples included in this project
-were executed on a machine called DW_2000Q_2_1.)  Check the max chain len and
-avg chain len statistics of the embeddings and pick one with short chains.
+- Run`crc8_formulate_problem.py` to formulate the problem and fit it to the QPU
+of a specific quantum computer.  (All of the worked examples included in this
+project were executed on a machine called DW_2000Q_2_1.)  Check the max chain
+len and avg chain len statistics of the embeddings and pick one with short
+chains.
 - Run `crc8_qpu.py` to submit the problem to the quantum computer, read samples
 (answers) from the QPU, and store the results in a file.
 - Run `crc8_examine_samples.py` to extract data from the results file, check
@@ -81,15 +82,16 @@ is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
 ## Details about usage of programs
 
-### Details about `crc8_bqm_emb.py`
+### Details about `crc8_formulate_problem.py`
 
-`crc8_bqm_emb.py` builds a CSP, translates the CSP to a BQM, and attempts to
-find embeddings.
+`crc8_formulate_problem.py` builds a CSP, translates the CSP to a BQM, and
+attempts to find embeddings.
 
 For example:
 
-The following little `bash` script, `exp1a.cmd`, invokes `crc8_bqm_emb.py`
-using the `time` command to measure CPU time and elapsed wall-clock time.
+The following little `bash` script, `exp1a.cmd`, invokes
+`crc8_formulate_problem.py` using the `time` command to measure CPU time and
+elapsed wall-clock time.
 It can take hours to make hundreds of attempts to find an embedding.
 It is worth it, because some embeddings are much better than others.
 This program does not use QPU time, only CPU time on the local computer.
@@ -99,7 +101,7 @@ This program does not use QPU time, only CPU time on the local computer.
 
 set -x  # echo commands
 
-time ./crc8_bqm_emb.py -f 'exp1a.{0:04d}.txt' \
+time ./crc8_formulate_problem.py -f 'exp1a.{0:04d}.txt' \
     -n 400 \
     -t 4 \
     -c 00011111 \
