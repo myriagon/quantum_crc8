@@ -80,9 +80,9 @@ Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain worked
 examples.  In each folder look for a file called `expX.notes.txt`, where `X`
 is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
-## Details about usage of programs
+## Usage of programs illustrated with examples
 
-### Details about `crc8_formulate_problem.py`
+### Usage of `crc8_formulate_problem.py`
 
 `crc8_formulate_problem.py` builds a CSP, translates the CSP to a BQM, and
 attempts to find embeddings.
@@ -150,7 +150,7 @@ CRC8 algorithm!  See experiment 4, `4/exp4.notes.txt`.
 It does not make sense to fix all of the CRC8, init, and data bits with `0` or
 `1` values.  Then there is no problem for the quantum computer to solve.
 
-### Details about `crc8_run_on_qpu.py`
+### Usage of `crc8_run_on_qpu.py`
 
 `crc8_run_on_qpu.py` submits a problem to a quantum computer remotely via the
 Leap platform.
@@ -171,7 +171,7 @@ The parameter `-s exp1a.0381.sampset.01.txt` specifies the output file in which
 the samples (answers) obtained from the QPU will be written using JSON.  This is
 an ASCII text file, but it is hard to interpret by eye.
 
-### Details about `crc8_check_results.py`
+### Usage of `crc8_check_results.py`
 
 `crc8_check_results.py` reads a file of samples (answers) from the QPU,
 unpacks the information, checks validity of samples, and prints a table.
