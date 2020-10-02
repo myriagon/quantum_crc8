@@ -250,7 +250,7 @@ DOI: 10.1051/matecconf/20164804001.
 
 ## License
 
-Copyright (c) 2018-2019 Scott Davis
+Copyright (c) 2018-2020 Scott Davis
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
