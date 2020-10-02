@@ -44,7 +44,7 @@ quantum computer.
 using JSON for complicated data structures.
 - Does not use QPU time.
 
-### `crc8_qpu.py`
+### `crc8_run_on_qpu.py`
 - Reads a file written by `crc8_formulate_problem.py` containing parameters,
 BQM, and embedding.
 - Runs the problem on the quantum computer remotely via the Leap cloud platform.
@@ -52,8 +52,8 @@ BQM, and embedding.
 - Uses QPU time.
 
 ### `crc8_check_results.py`
-- Reads a file written by `crc8_qpu.py` containing samples (answers) from the
-QPU.
+- Reads a file written by `crc8_run_on_qpu.py` containing samples (answers) from
+the QPU.
 - Extracts desired information from the sample data structures.
 - Checks the validity of the samples and prints a table.
 - Does not use QPU time.
@@ -69,8 +69,8 @@ of a specific quantum computer.  (All of the worked examples included in this
 project were executed on a machine called DW_2000Q_2_1.)  Check the max chain
 len and avg chain len statistics of the embeddings and pick one with short
 chains.
-- Run `crc8_qpu.py` to submit the problem to the quantum computer, read samples
-(answers) from the QPU, and store the results in a file.
+- Run `crc8_run_on_qpu.py` to submit the problem to the quantum computer, read
+samples (answers) from the QPU, and store the results in a file.
 - Run `crc8_check_results.py` to extract data from the results file, check
 validity of samples (answers), and print a table.
 
@@ -150,15 +150,15 @@ CRC8 algorithm!  See experiment 4, `4/exp4.notes.txt`.
 It does not make sense to fix all of the CRC8, init, and data bits with `0` or
 `1` values.  Then there is no problem for the quantum computer to solve.
 
-### Details about `crc8_qpu.py`
+### Details about `crc8_run_on_qpu.py`
 
-`crc8_qpu.py` submits a problem to a quantum computer remotely via the Leap
-platform.
+`crc8_run_on_qpu.py` submits a problem to a quantum computer remotely via the
+Leap platform.
 
 For example:
 
 ```
-./crc8_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
+./crc8_run_on_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
 ```
 
 The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
@@ -192,7 +192,7 @@ The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
 BQM, embedding, etc that was written by `crc8_emb_bqm.py`.
 
 The parameter `-s exp1a.0381.sampset.01.txt` specifies the input file of samples
-(answers) from the QPU that was written by `crc8_qpu.py`.
+(answers) from the QPU that was written by `crc8_run_on_qpu.py`.
 
 In the output table, `crc8` designates the CRC8 value obtained from the QPU.
 The `init` and `data` values obtained from the QPU are used to calculate a CRC8
