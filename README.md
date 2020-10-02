@@ -51,7 +51,7 @@ BQM, and embedding.
 - Stores samples (answers) in a file using JSON.
 - Uses QPU time.
 
-### `crc8_examine_samples.py`
+### `crc8_check_results.py`
 - Reads a file written by `crc8_qpu.py` containing samples (answers) from the
 QPU.
 - Extracts desired information from the sample data structures.
@@ -71,7 +71,7 @@ len and avg chain len statistics of the embeddings and pick one with short
 chains.
 - Run `crc8_qpu.py` to submit the problem to the quantum computer, read samples
 (answers) from the QPU, and store the results in a file.
-- Run `crc8_examine_samples.py` to extract data from the results file, check
+- Run `crc8_check_results.py` to extract data from the results file, check
 validity of samples (answers), and print a table.
 
 ## Examples
@@ -171,14 +171,14 @@ The parameter `-s exp1a.0381.sampset.01.txt` specifies the output file in which
 the samples (answers) obtained from the QPU will be written using JSON.  This is
 an ASCII text file, but it is hard to interpret by eye.
 
-### Details about `crc8_examine_samples.py`
+### Details about `crc8_check_results.py`
 
-`crc8_examine_samples.py` reads a file of samples (answers) from the QPU,
+`crc8_check_results.py` reads a file of samples (answers) from the QPU,
 unpacks the information, checks validity of samples, and prints a table.
 It does not use QPU time.
 
 ```
-./crc8_examine_samples.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt | egrep valid
+./crc8_check_results.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt | egrep valid
 crc8 00011111 init 00000000 data 11010111 11110100 11110111 11101001 energy  120.0 computed-crc8 00011111 valid
 crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy  115.0 computed-crc8 00011111 valid
 crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy   74.0 computed-crc8 00011111 valid
