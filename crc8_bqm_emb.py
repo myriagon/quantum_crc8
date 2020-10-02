@@ -30,7 +30,7 @@ import crc8
 
 
 #===============================================================================
-def crc8_bqm_emb():
+def crc8_formulate_problem():
 
     # Parse command-line arguments
 
@@ -256,6 +256,6 @@ def crc8_bqm_emb():
 #===============================================================================
 # Run the program
 
-crc8_bqm_emb()
+crc8_formulate_problem()
 
 
