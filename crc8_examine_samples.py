@@ -29,7 +29,7 @@ import crc8
 
 
 #===============================================================================
-def crc8_examine_samples():
+def crc8_check_results():
 
     # Parse command-line arguments
 
@@ -142,6 +142,6 @@ def crc8_examine_samples():
 #===============================================================================
 # Run the program
 
-crc8_examine_samples()
+crc8_check_results()
 
 
