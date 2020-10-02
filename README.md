@@ -74,10 +74,14 @@ samples (answers) from the QPU, and store the results in a file.
 - Run `crc8_check_results.py` to extract data from the results file, check
 validity of samples (answers), and print a table.
 
-## Examples
+## Worked problems
 
-Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain worked
-examples.  In each folder look for a file called `expX.notes.txt`, where `X`
+The folder `11a` contains a problem worked on Advantage_system1.1 in October
+2020.  For a summary, look at the file `11a/README.exp11a.txt`.
+
+Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain problems
+worked on an older, less capable 2000Q system.
+In each folder look for a file called `expX.notes.txt`, where `X`
 is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
 ## Usage of programs illustrated with examples
@@ -89,7 +93,7 @@ attempts to find embeddings.
 
 For example:
 
-The following little `bash` script, `exp1a.cmd`, invokes
+The following little `bash` script, `exp11a.cmd`, invokes
 `crc8_formulate_problem.py` using the `time` command to measure CPU time and
 elapsed wall-clock time.
 It can take hours to make hundreds of attempts to find an embedding.
@@ -101,7 +105,7 @@ This program does not use QPU time, only CPU time on the local computer.
 
 set -x  # echo commands
 
-time ./crc8_formulate_problem.py -f 'exp1a.{0:04d}.txt' \
+time ./crc8_formulate_problem.py -f 'exp11a.{0:04d}.txt' \
     -n 400 \
     -t 4 \
     -c 00011111 \
@@ -113,14 +117,14 @@ The output of the script can be redirected to a log file and monitored
 using `tail`.  In `bash`:
 
 ```
-./exp1a.cmd > exp1a.log 2>&1 &
-tail -100f exp1a.log
+./exp11a.cmd > exp11a.log 2>&1 &
+tail -100f exp11a.log
 ```
 
-The parameter `-f 'exp1a.{0:04d}.txt'` specifies a Python string formatting
+The parameter `-f 'exp11a.{0:04d}.txt'` specifies a Python string formatting
 pattern to be used for the names of output files containing variables, BQM,
-embedding, etc.  Files will be named `exp1a.0000.txt`, `exp1a.0001.txt`, ...
-`exp1a.0399.txt`.
+embedding, etc.  Files will be named `exp11a.0000.txt`, `exp11a.0001.txt`, ...
+`exp11a.0399.txt`.
 
 The parameter `-n 400` specifies the number of BQM embedding attempts.
 For each successful attempt, a file named according to the `-f` pattern will
@@ -158,16 +162,16 @@ Leap platform.
 For example:
 
 ```
-./crc8_run_on_qpu.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt -n 1000
+./crc8_run_on_qpu.py -f exp11a.0315.txt -s exp11a.0315.sampset.01.txt -n 1000
 ```
 
-The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
-BQM, embedding, etc that was written by `crc8_emb_bqm.py`.
+The parameter `-f exp11a.0315.txt` specifies the input file containing
+variables, BQM, embedding, etc that was written by `crc8_formulate_problem.py`.
 
 The parameter `-n 1000` tells the program to read 1000 samples (answers) from
 the QPU.
 
-The parameter `-s exp1a.0381.sampset.01.txt` specifies the output file in which
+The parameter `-s exp11a.0315.sampset.01.txt` specifies the output file in which
 the samples (answers) obtained from the QPU will be written using JSON.  This is
 an ASCII text file, but it is hard to interpret by eye.
 
@@ -178,20 +182,17 @@ unpacks the information, checks validity of samples, and prints a table.
 It does not use QPU time.
 
 ```
-./crc8_check_results.py -f exp1a.0381.txt -s exp1a.0381.sampset.01.txt | egrep valid
-crc8 00011111 init 00000000 data 11010111 11110100 11110111 11101001 energy  120.0 computed-crc8 00011111 valid
-crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy  115.0 computed-crc8 00011111 valid
-crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy   74.0 computed-crc8 00011111 valid
-crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy   92.0 computed-crc8 00011111 valid
-crc8 00011111 init 00000000 data 11010111 11100100 11111111 01111001 energy  110.0 computed-crc8 00011111 valid
-crc8 00011111 init 00000000 data 11010111 11110100 11110111 11101001 energy  109.0 computed-crc8 00011111 valid
-...
+./crc8_check_results.py -f exp11a.0315.txt -s exp11a.0315.sampset.01.txt | egrep valid
+crc8 00011111 init 00000000 data 10010010 11101100 10101100 10100100 energy   44.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11111101 10111010 01101100 11010011 energy   46.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 11011100 10010111 01001101 01101011 energy   48.0 computed-crc8 00011111 valid
+crc8 00011111 init 00000000 data 01111110 00000110 10111000 11011111 energy   55.0 computed-crc8 00011111 valid
 ```
 
-The parameter `-f exp1a.0381.txt` specifies the input file containing variables,
-BQM, embedding, etc that was written by `crc8_emb_bqm.py`.
+The parameter `-f exp11a.0315.txt` specifies the input file containing variables,
+BQM, embedding, etc that was written by `crc8_formulate_problem.py`.
 
-The parameter `-s exp1a.0381.sampset.01.txt` specifies the input file of samples
+The parameter `-s exp11a.0315.sampset.01.txt` specifies the input file of samples
 (answers) from the QPU that was written by `crc8_run_on_qpu.py`.
 
 In the output table, `crc8` designates the CRC8 value obtained from the QPU.
