@@ -74,8 +74,9 @@ validity of samples (answers), and print a table.
 
 ## Worked problems
 
-The folder `11a` contains a problem worked on Advantage_system1.1 in October
-2020.  For a summary, look at the file `11a/README.exp11a.txt`.
+The folders `11a` and `11m` contain problems worked on Advantage_system1.1 in
+October 2020.  For summaries, look at the files `11a/README.exp11a.txt` and
+`11m/README.exp11m.txt`.
 
 Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain problems
 worked on an older, less capable 2000Q system.
