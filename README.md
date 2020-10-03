@@ -229,11 +229,11 @@ possible values for the data blob.  The candidate reconstructed data blob is
 transmitted to the spacecraft.  The spacecraft responds "Yes, you got it" or
 "No, that is wrong; here is another message digest computed with algorithm B".
 
-Using a D-Wave 2000Q with 2048 qubits, it is possible to use the software
-contained in this project to discover as many as 9 octets (72 bits) of unknown
-data consistent with a given 8-bit CRC and a given 8-bit init value.  (See
-example `1f`.)  The D-Wave team is working on a next-generation machine with
-5000 qubits and more interconnections among qubits.  It seems reasonable to hope
+In early October 2020, using the new D-Wave Advantage_system1.1 with 5436
+qubits, it is possible to use the software contained in this project to
+discover at least 16 octets (128 bits) of unknown data consistent with a given
+8-bit CRC and a given 8-bit init value.  (See example `11m`.)
+It seems reasonable to hope
 that 10 or 20 years from now, when a probe could be reaching the outer limits of
 the solar system, hurtling on its way toward another star, quantum computers
 with tens of thousands of highly interconnected qubits might be available.  It
