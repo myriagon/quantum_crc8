@@ -82,7 +82,7 @@ For summaries, look at the files
 `11u/README.exp11u.txt`.
 
 Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain problems
-worked on the previous-generation 2000Q system.
+worked on a previous-generation 2000Q system.
 In each folder look for a file called `expX.notes.txt`, where `X`
 is the experiment name -- e.g., `1a/exp1a.notes.txt`.
 
