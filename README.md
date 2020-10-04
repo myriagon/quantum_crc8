@@ -32,6 +32,27 @@ unknown bits simultaneously and settles on a solution.  This is typically done
 hundreds or thousands of times in rapid succession to obtain a set of samples,
 some of which are likely to be valid.
 
+## How this project may be useful to you
+
+This project may be useful to you even if you are not interested in a cyclic
+redundancy check algorithm.
+
+It shows a way of representing a problem in terms of combinational logic gates.
+Many different problems can be represented this way.
+
+It shows a clean way of organizing a project in three parts.
+
+(1) The first part formulates a problem in terms that a D-Wave quantum computer
+can work on, searches for ways to fit the problem to a particular D-Wave quantum
+computer, and stores the problem fittings (embeddings) in files for later use.
+
+(2) The second part reads an embedding, submits the problem to the D-Wave
+quantum computer for execution via the Leap cloud platform, and writes the
+results to a file for later validation and interpretation.
+
+(3) The third part examines the results obtained from the D-Wave quantum
+computer, checks them for validity, and prints a tabular summary.
+
 ## Source code
 
 ### `crc8_formulate_problem.py`
