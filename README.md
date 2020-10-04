@@ -234,8 +234,8 @@ transmitted to the spacecraft.  The spacecraft responds "Yes, you got it" or
 
 In early October 2020, using the new D-Wave Advantage_system1.1 with 5436
 qubits, it is possible to use the software contained in this project to
-discover at least 16 octets (128 bits) of unknown data consistent with a given
-8-bit CRC and a given 8-bit init value.  (See example `11m`.)
+discover at least 24 octets (192 bits) of unknown data consistent with a given
+8-bit CRC and a given 8-bit init value.  (See experiment `11u`.)
 It seems reasonable to hope
 that 10 or 20 years from now, when a probe could be reaching the outer limits of
 the solar system, hurtling on its way toward another star, quantum computers
