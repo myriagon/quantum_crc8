@@ -93,19 +93,36 @@ samples (answers) from the QPU, and store the results in a file.
 - Run `crc8_check_results.py` to extract data from the results file, check
 validity of samples (answers), and print a table.
 
-## Worked problems
+## Worked example problems
 
-The folders `11a`, `11m`, and `11u`
-contain problems worked on Advantage_system1.1 in October 2020.
-For summaries, look at the files
-`11a/README.exp11a.txt`,
-`11m/README.exp11m.txt`, and
-`11u/README.exp11u.txt`.
+### Problems worked on Advantage_system1.1 in October 2020
 
-Folders `1a`, `1b`, `1c`, `1d`, `1e`, `1f`, `2`, `3`, and `4` contain problems
-worked on a previous-generation 2000Q system.
-In each folder look for a file called `expX.notes.txt`, where `X`
-is the experiment name -- e.g., `1a/exp1a.notes.txt`.
+```
+          Explanatory text file
+Folder    (inside the folder)
+------    ---------------------
+11a       README.exp11a.txt
+11m       README.exp11m.txt
+11u       README.exp11u.txt
+11w       README.exp11w.txt
+```
+
+### Problems worked on a previous-generation 2000Q
+
+```
+          Explanatory text file
+Folder    (inside the folder)
+------    ---------------------
+1a        exp1a.notes.txt
+1b        exp1b.notes.txt
+1c        exp1c.notes.txt
+1d        exp1d.notes.txt
+1e        exp1e.notes.txt
+1f        exp1f.notes.txt
+2         exp2.notes.txt
+3         exp3.notes.txt
+4         exp4.notes.txt
+```
 
 ## Usage of programs illustrated with examples
 
