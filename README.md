@@ -124,6 +124,11 @@ Folder    (inside the folder)
 4         exp4.notes.txt
 ```
 
+When reading the notes about these older worked problems, please note that
+`crc8_bqm_emb.py` is now called `crc8_formulate_problem.py`, and
+`crc8_examine_samples.py` is now called `crc8_check_results.py`.
+I changed the names of those programs for clarity.
+
 ## Usage of programs illustrated with examples
 
 ### Usage of `crc8_formulate_problem.py`
